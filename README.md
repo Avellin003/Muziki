@@ -1,1 +1,1 @@
-Online media player
+A website media player "Muziki"

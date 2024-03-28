@@ -1,13 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-gray-50">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/src/assets/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Muziki</title>
-  </head>
-  <body class="h-full overflow-hidden">
-    <div id="root"></div>
-    <script type="module" src="/src/index.jsx"></script>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>muziki</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <header>
+        <img src="https://res.cloudinary.com/dbuuwjrph/image/upload/v1710926455/_4cd0771d-2a1f-4c92-90e6-ee9ec993a1a0-removebg-preview_g3mcyb.png" class="logo-1">
+        <h1>Muziki</h1>
+        <button id="darkModeToggle">Dark Mode</button>
+    </header>
+    <form id="searchForm">
+        <input type="text" id="searchInput" placeholder="Search videos...">
+        <button type="submit">Search</button>
+    </form>
+    <section class="main-content" id="videosContainer">
+        <!-- Videos will be displayed here -->
+    </section>
+    <footer>
+        <p>&copy; Muziki Copyright</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
 </html>
