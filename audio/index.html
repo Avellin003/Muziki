@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>muziki</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="https://res.cloudinary.com/dbuuwjrph/image/upload/v1710926455/_4cd0771d-2a1f-4c92-90e6-ee9ec993a1a0-removebg-preview_g3mcyb.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="sidebar">
+        <input type="checkbox" id="darkModeToggle"/>
+        <label for="darkModeToggle"></label>
+        <div class="logo">
+            <a href="">
+                <img src="https://res.cloudinary.com/dbuuwjrph/image/upload/v1710926455/_4cd0771d-2a1f-4c92-90e6-ee9ec993a1a0-removebg-preview_g3mcyb.png" alt="Logo">
+            </a>
+            <input type="text" id="searchInput" placeholder="Search songs...">
+            <button id="searchButton">Search</button>
+        </div>
+
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="">
+                        <span class="fa fa-home"></span>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <span class="fa fas fa-book"></span>
+                        <span>Your Library</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="">
+                        <span class="fa fa-home"></span>
+                        <span>Create Playlist</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../index.html">
+                        <span class="fa fa-video"></span>
+                        <span>Video</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="policies">
+            <ul>
+                <li>
+                    <a href="">Cookies</a>
+                </li>
+                <li>
+                    <a href="">Privacy</a>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+
+    <div class="main-container">
+        <div class="topbar">
+            <div class="prev-next-buttons">
+                <button type="button" class="fa fas fa-chevron-left"></button>
+                <button type="button" class="fa fas fa-chevron-right"></button>
+            </div>
+
+            <div class="navbar">
+                <ul>
+                    <li>
+                        <a href="">Sign Up</a>
+                    </li>
+                </ul>
+                <button type="button">Login</button>
+            </div>
+        </div>
+
+        <div class="spotify-playlists" id="songsList">
+            <h2>Songs</h2>
+        </div>
+    </div>
+
+    <div class="preview" id="mediaPlayer">
+        <audio id="audioPlayer" controls>
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <script src="./script.js"></script>
+    <script src="https://kit.fontawesome.com/ef9a692198.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

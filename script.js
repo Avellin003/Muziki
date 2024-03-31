@@ -21,14 +21,14 @@ document.getElementById('searchForm').addEventListener('submit', async (event) =
 
 async function fetchRecommendations() {
     // Fetch recommendations from YouTube
-    const response = await fetch('https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=5&key=AIzaSyCeS9K8VgeanxqPAks2pdWI8XANAG9L7TA&part=snippet&type=video&maxResults=4');
+    const response = await fetch('https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=5&key=AIzaSyCeS9K8VgeanxqPAks2pdWI8XANAG9L7TA&part=snippet&type=video&maxResults=6');
     const data = await response.json();
     return data.items; // Array of recommended videos
 }
 
 async function fetchVideos(searchQuery) {
     // Fetch videos using the YouTube Data API
-    const response = await fetch(`https://www.googleapis.com/youtube/v3/search?q=${searchQuery}&key=AIzaSyCeS9K8VgeanxqPAks2pdWI8XANAG9L7TA&part=snippet&type=video&maxResults=4`);
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/search?q=${searchQuery}&key=AIzaSyCeS9K8VgeanxqPAks2pdWI8XANAG9L7TA&part=snippet&type=video&maxResults=6`);
     const data = await response.json();
     return data.items; // Array of video items
 }
@@ -40,7 +40,7 @@ function displayVideos(videos) {
     videos.forEach(video => {
         const videoElement = document.createElement('iframe');
         videoElement.src = `https://www.youtube.com/embed/${video.id.videoId}`;
-        videoElement.width = 560;
+        videoElement.width = 465;
         videoElement.height = 315;
         videoElement.title = video.snippet.title;
         videoElement.allowFullscreen = true;
