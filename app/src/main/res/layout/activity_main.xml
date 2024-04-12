@@ -7,15 +7,22 @@
     android:background="#ed6300"
     tools:context=".MainActivity">
 
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:queryHint="Search songs..."
+        app:iconifiedByDefault="false" />
+
     <ListView
         android:id="@+id/listViewSong"
+        android:layout_below="@id/searchView"
         android:divider="@android:color/transparent"
         android:dividerHeight="10.0sp"
         android:padding="8dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
     </ListView>
-
 
 </RelativeLayout>

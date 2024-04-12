@@ -138,6 +138,16 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp">
             </Button>
+
+            <Button
+                android:id="@+id/bot"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="150dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/bot">
+            </Button>
+
         </RelativeLayout>
     </LinearLayout>
 

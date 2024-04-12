@@ -1,6 +1,10 @@
 package com.example.muziki;
 
 import androidx.annotation.NonNull;
+
+import android.widget.SearchView;
+import android.widget.ArrayAdapter;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,6 +14,7 @@ import android.os.Environment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.Manifest;
@@ -31,18 +36,40 @@ public class MainActivity extends AppCompatActivity {
     String[] items;
     boolean permissionGranted = false;
 
+    ArrayAdapter<String> adapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        listView = findViewById(R.id.listViewSong);
+        SearchView searchView = findViewById(R.id.searchView);
 
         if (!permissionGranted) {
             runtimePermission();
         } else {
             displaySongs();
         }
+        setUpSearchView(searchView);
+    }
+    private void setUpSearchView(SearchView searchView) {
+        // Set up a listener for the search view
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
-        listView = findViewById(R.id.listViewSong);
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(adapter != null) { // Add this line to check if adapter is initialized
+                    adapter.getFilter().filter(newText); // Filter the adapter based on the search query
+                }
+                return false;
+            }
+        });
     }
 
     public void runtimePermission() {
