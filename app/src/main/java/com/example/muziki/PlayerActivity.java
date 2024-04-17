@@ -1,3 +1,5 @@
+//Media Player Activity File
+
 package com.example.muziki;
 
 import androidx.annotation.NonNull;
@@ -19,16 +21,32 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
 
 import java.io.File;
 import java.util.ArrayList;
 
 public class PlayerActivity extends AppCompatActivity {
-    Button btnplay, btnnext, btnprev, btnff, btnfr;
+    Button btnplay, btnnext, btnprev, btnff, btnfr; //Initalize variables to use
     TextView txtsname, txtsstart, txtsstop;
     SeekBar seekmusic;
     String sname;
     ImageView imageView;
+
+    private MediaPlayerService mediaPlayerService;
+    private boolean isServiceBound = false; //Initialize by Unbinding Foreground Service (MediaPlayerService.java)to do it later
+
 
     public static final String EXTRA_NAME = "song_name";
     static MediaPlayer mediaPlayer;
@@ -36,12 +54,28 @@ public class PlayerActivity extends AppCompatActivity {
     ArrayList<File> mySongs;
     Thread updateseekbar;
 
+
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            MediaPlayerService.LocalBinder binder = (MediaPlayerService.LocalBinder) service;
+            mediaPlayerService = binder.getService();
+            isServiceBound = true;
+        } //Binds the ForeGround Service (MediaPlayerService.java)
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            isServiceBound = false;
+        }
+    };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_player);
+        setContentView(R.layout.activity_player); //Calls the activity_player.xml in charge of player skeleton
 
-        btnprev = findViewById(R.id.btnprev);
+        btnprev = findViewById(R.id.btnprev);//Links the initialized variables to the buttons in player skeleton using id
         btnnext = findViewById(R.id.btnnext);
         btnplay = findViewById(R.id.playbtn);
         btnff = findViewById(R.id.btnff);
@@ -55,8 +89,11 @@ public class PlayerActivity extends AppCompatActivity {
         if (mediaPlayer != null)
         {
             mediaPlayer.stop();
-            mediaPlayer.release();
+            mediaPlayer.release(); //Checks if the media Player was playing this is done to avoid songs mixturing
         }
+
+        Intent intent = new Intent(this, MediaPlayerService.class);
+        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
 
         Intent i = getIntent();
         Bundle bundle = i.getExtras();
@@ -65,26 +102,27 @@ public class PlayerActivity extends AppCompatActivity {
         String songName = i.getStringExtra("songname");
         position = bundle.getInt("position", 0);
         txtsname.setSelected(true);
-        Uri uri = Uri.parse(mySongs.get(position).toString());
-        sname = mySongs.get(position).getName();
-        txtsname.setText(sname);
-        mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);
-        mediaPlayer.start();
+        Uri uri = Uri.parse(mySongs.get(position).toString()); //Checks the Songs Uri given after reading them in MainActivity.java
+        sname = mySongs.get(position).getName(); //gets the name of the song using position
+        txtsname.setText(sname);//Provides the name of the song to the txtsname linked to the song displayer in activity_player.xml
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);//Creates the session
+        mediaPlayer.start();//Starts playing the song
 
+        //seekbar is used to track the duration and time left for song to end using visuals
         updateseekbar = new Thread()
         {
             @Override
             public void run() {
-                int totalDuration = mediaPlayer.getDuration();
-                int currentposition = 0;
+                int totalDuration = mediaPlayer.getDuration();//Gets the song's total duration
+                int currentposition = 0;//initializes the start at zero as the song just started
 
                 while (currentposition < totalDuration)
                 {
                     try
                     {
-                        sleep(500);
-                        currentposition = mediaPlayer.getCurrentPosition();
-                        seekmusic.setProgress(currentposition);
+                        sleep(500);//updates the seekbar current location after every 0.5 seconds
+                        currentposition = mediaPlayer.getCurrentPosition();//Tracks the current song position in order to show it visualy
+                        seekmusic.setProgress(currentposition);//sets progress
                     }
                     catch (InterruptedException | IllegalStateException e)
                     {
@@ -93,10 +131,12 @@ public class PlayerActivity extends AppCompatActivity {
                 }
             }
         };
-        seekmusic.setMax(mediaPlayer.getDuration());
-        updateseekbar.start();
-        seekmusic.getProgressDrawable().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
-        seekmusic.getThumb().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_IN);
+        seekmusic.setMax(mediaPlayer.getDuration());//gets the duration
+        updateseekbar.start();//Starts the process
+        seekmusic.getProgressDrawable().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);//fills the time that we've exceeded in seekbar
+        seekmusic.getThumb().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_IN);//sets the color of the seekbar progression dot
+
+        //seekmusic in charge of changing the seekbar progression manually
 
         seekmusic.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -117,11 +157,11 @@ public class PlayerActivity extends AppCompatActivity {
             }
         });
 
-        String endTime = createTime(mediaPlayer.getDuration());
-        txtsstop.setText(endTime);
+        String endTime = createTime(mediaPlayer.getDuration());//gets the end time
+        txtsstop.setText(endTime);//provides the end time to the place holder in the activity_player.xml
 
         final Handler handler = new Handler();
-        final int delay = 1000;
+        final int delay = 1000;//delays 1sec before moving on
 
         handler.postDelayed(new Runnable() {
             @Override
@@ -132,6 +172,7 @@ public class PlayerActivity extends AppCompatActivity {
             }
         }, delay);
 
+        //play and pause listener
         btnplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,6 +185,7 @@ public class PlayerActivity extends AppCompatActivity {
                 }
             }
         });
+
         //next listener
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -160,12 +202,19 @@ public class PlayerActivity extends AppCompatActivity {
                 Uri u = Uri.parse(mySongs.get(position).toString());
                 mediaPlayer = MediaPlayer.create(getApplicationContext(), u);
                 sname = mySongs.get(position).getName();
+
+                String endTime = createTime(mediaPlayer.getDuration());
+                txtsstop.setText(endTime);
+
+
                 txtsname.setText(sname);
                 mediaPlayer.start();
                 btnplay.setBackgroundResource(R.drawable.pause__1_);
                 startAnimation(imageView);
             }
         });
+
+        //previous button listener
 
         btnprev.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,11 +226,18 @@ public class PlayerActivity extends AppCompatActivity {
                 mediaPlayer = MediaPlayer.create(getApplicationContext(), u);
                 sname = mySongs.get(position).getName();
                 txtsname.setText(sname);
+
+                String endTime = createTime(mediaPlayer.getDuration());
+                txtsstop.setText(endTime);
+
+
                 mediaPlayer.start();
                 btnplay.setBackgroundResource(R.drawable.pause__1_);
                 startAnimation(imageView);
             }
         });
+
+        //Fast forward listener
 
         btnff.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,6 +249,8 @@ public class PlayerActivity extends AppCompatActivity {
 
             }
         });
+
+        //Fast Backward Listener
 
         btnfr.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,6 +264,8 @@ public class PlayerActivity extends AppCompatActivity {
         });
     }
 
+    //Starts the rotational animation of the logo when we press next or previous button
+
     public void startAnimation(View view)
     {
         ObjectAnimator animator = ObjectAnimator.ofFloat(imageView, "rotation",0f,360f);
@@ -214,6 +274,8 @@ public class PlayerActivity extends AppCompatActivity {
         animatorSet.playTogether(animator);
         animatorSet.start();
     }
+
+    //Creates the proper time display by dividing into minutes and seconds for a better seeing of time while playing
 
     public String createTime(int duration)
     {
@@ -231,23 +293,14 @@ public class PlayerActivity extends AppCompatActivity {
         return time;
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-            mediaPlayer.release();
-            mediaPlayer = null;
-        }
-    }
+    //Defines what happens when we destroy or remove the app from currently working apps in android
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         super.onDestroy();
-        if (mediaPlayer != null) {
-            mediaPlayer.release();
-            mediaPlayer = null;
+        if (isServiceBound) {
+            unbindService(serviceConnection);
+            isServiceBound = false;
         }
     }
 }
