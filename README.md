@@ -3,7 +3,7 @@
 ## Introduction
 Muziki is more than just an offline Android audio media player axzpp—it's a passion project born out of a love for music and a desire to create something meaningful. As the sole developer behind Muziki, I embarked on this journey with the vision of crafting an app that not only provides users with a seamless music listening experience but also evolves to meet their ever-changing needs.
 
-- [Muziki](https://www.example.com)
+- [Muziki](https://lively-entremet-79f585.netlify.app/)
 - [MUZIKI MEDIA PLAYER](https://www.linkedin.com/posts/uteramahoro-avellin-bonaparte-b1b754261_activity-7183909792648732673-5Hnf?utm_source=share&utm_medium=member_desktop)
 - LinkedIn: [UTERAMAHORO Avellin Bonaparte](https://www.linkedin.com/in/uteramahoro-avellin-bonaparte-b1b754261/)
 
