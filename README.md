@@ -3,7 +3,7 @@
 ## Introduction
 Muziki is more than just an offline Android audio media player axzpp—it's a passion project born out of a love for music and a desire to create something meaningful. As the sole developer behind Muziki, I embarked on this journey with the vision of crafting an app that not only provides users with a seamless music listening experience but also evolves to meet their ever-changing needs.
 
-- [Muziki](https://lively-entremet-79f585.netlify.app/)
+- [MUZIKI LANDING PAGE](https://lively-entremet-79f585.netlify.app/)
 - [MUZIKI MEDIA PLAYER](https://www.linkedin.com/posts/uteramahoro-avellin-bonaparte-b1b754261_activity-7183909792648732673-5Hnf?utm_source=share&utm_medium=member_desktop)
 - LinkedIn: [UTERAMAHORO Avellin Bonaparte](https://www.linkedin.com/in/uteramahoro-avellin-bonaparte-b1b754261/)
 
@@ -42,10 +42,10 @@ Contributions to Muziki are welcome! If you'd like to contribute to the developm
 - Make your changes and test them thoroughly.
 - Submit a pull request with a detailed description of your changes.
 
-## Related Projects
-Check out these related projects for more audio-related apps and tools:
-- [MUZIKI LANDING-PAGE](https://github.com/Avellin003/Muziki-landing_page) - An online music streaming platform.
-- [SIMPLE-SHELL](https://github.com/Avellin003/simple_shell) - A comprehensive audio editing software.
+## Related Project:
+Github Projects to View
+- [MUZIKI LANDING-PAGE](https://lively-entremet-79f585.netlify.app/)
+- [SIMPLE-SHELL](https://github.com/Avellin003/simple_shell)
 
 ## Licensing
 Muziki is licensed under the [OPEN SOURCE LICENSE]. Feel free to use, modify, and distribute the code as per the terms of the license.
