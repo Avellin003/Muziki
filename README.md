@@ -46,12 +46,12 @@ Contributions to Muziki are welcome! If you'd like to contribute to the developm
 Github Projects to View
 - [SORTING ALGORITHM](https://github.com/Avellin003/sorting_algorithms)
 - [SIMPLE-SHELL](https://github.com/Avellin003/simple_shell)
-- [PRINTF] (https://github.com/Avellin003/Printf)
-- [MONTY] (https://github.com/Avellin003/monty)
-- [BINARY TREES] (https://github.com/Avellin003/binary_trees)
+- [PRINTF](https://github.com/Avellin003/Printf)
+- [MONTY](https://github.com/Avellin003/monty)
+- [BINARY TREES](https://github.com/Avellin003/binary_trees)
 - [RSA](https://github.com/Avellin003/RSA-factoring-challenge)
-- [SYSTEM ENGINEERING] (https://github.com/Avellin003/alx-system_engineering-devops)
-- [HIGH LEVEL PROGRAMMING] (https://github.com/Avellin003/alx-higher_level_programming)
+- [SYSTEM ENGINEERING](https://github.com/Avellin003/alx-system_engineering-devops)
+- [HIGH LEVEL PROGRAMMING](https://github.com/Avellin003/alx-higher_level_programming)
 
 ## Licensing
 Muziki is licensed under the [OPEN SOURCE LICENSE]. Feel free to use, modify, and distribute the code as per the terms of the license.
